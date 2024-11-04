@@ -23,9 +23,9 @@ void readFromFile(std::string in, std::string out){
 //чтение строки из файла до разделителя
 //include <string>
 //include <sstream>
-void readString(std::string in, std::string out){
-    std::ifstream f(in);
-    std::ofstream o(out);
+void readString(std::string inp, std::string outp){
+    std::ifstream f(inp);
+    std::ofstream o(outp);//конструктор без параметров
 
     if(f.is_open()){
         std::string s; //сюда считаем из потока "f"
