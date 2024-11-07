@@ -3,6 +3,7 @@ using namespace std;
 
 class Node{
 public:
+    //comment
     Node() : val(0), next(nullptr) {}
     explicit Node(int _val) : val(_val) {}
     Node(int _val, Node* _next) : val(_val), next(_next) {}
