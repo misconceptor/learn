@@ -1,8 +1,10 @@
-git status //view status of staged and unstaged changes
+# git cheatsheet
 
-git add .  //add all changes from current recursive to staged area
+* git status //view status of staged and unstaged changes
 
-git commit -m comment //commit to local repo
+* git add .  //add all changes from current recursive to staged area
 
-git push   //push from local repo to remote
-git pull //pull from remote into local
+* git commit -m comment //commit to local repo
+
+* git push   //push from local repo to remote
+* git pull //pull from remote into local
