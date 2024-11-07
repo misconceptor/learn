@@ -15,6 +15,9 @@ public:
 class LinkedList{
 public:
     LinkedList() : first(nullptr), ptr_last(&first) {}
+    ~LinkedList(){
+        erase(first);
+    }
     //destructor with erase-function
 
     void push_front(int x){
@@ -40,7 +43,6 @@ public:
 
         }
     }
-
     void show(){
         Node *head = first;
         while(head){
@@ -49,8 +51,36 @@ public:
         }
         cout << endl;
     }
+    int size(){
+        Node* head = first;
+        int ans = 0;
+        while(head){
+            ++ans;
+            head = head->next;
+        }
+        return ans;
+    }
+    void insert(int value,int pos){
+        if(pos == 1){
+            push_front(value);
+            return;
+        }
+        if(pos == size()){
+            push_back(value);
+            return;
+        }
+        if(pos > size()){
+            return; //position is out of range
+        }
+        Node* head = first;
+        for(int i=0; i<pos-2; ++i){
+            head = head->next;
+        }
+        Node* node = new Node(value,head->next);
+        head->next = node;
+    }
 private:
-    void Erase(Node* &cur){
+    void erase(Node* &cur){
         while(cur != nullptr){
             Node* p = cur;
             cur = cur->next;
@@ -63,13 +93,13 @@ private:
 };
 int main(){
     LinkedList a;
-    a.push_front(4);
-    a.push_front(5);
-    a.push_front(6);
-    cout << "list=";
+    a.push_back(7);
+    a.push_back(51);
+    a.push_back(18);
+    a.push_back(5);
+    a.push_back(87);
     a.show();
-
-    a.pop_back();
+    a.insert(2,5);
     a.show();
 
     return 0;
