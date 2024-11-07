@@ -12,10 +12,10 @@ public:
     Rat const operator*(const Rat& other) const;
     Rat const operator/(const Rat& other) const;
 
-    bool operator==(Rat const& r) const{
+    inline bool operator==(Rat const& r) const{
         return (num * r.denom == denom * r.num);
     }
-    bool operator==(int r) const{
+    inline bool operator==(int r) const{
         return (num == denom * r);
     }
 
