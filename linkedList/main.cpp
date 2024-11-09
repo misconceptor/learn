@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string.h>
 using namespace std;
 
 class Node{
@@ -15,10 +17,27 @@ public:
 class LinkedList{
 public:
     LinkedList() : first(nullptr), ptr_last(&first) {}
+    LinkedList(const LinkedList& list) { //copy constructor
+        first = nullptr;
+        ptr_last = &first;
+        Node* head = list.first;
+        while(head){
+            push_back(head->val);
+            head = head->next;
+        }
+    }
+    //move constructor, which moves pointers on memory field from original to new
+    //use std::move to access this constructor
+    LinkedList(LinkedList && list) noexcept {
+        first = list.first;
+        ptr_last = list.ptr_last;
+        list.first = nullptr;
+        list.ptr_last = nullptr; 
+    }
+    
     ~LinkedList(){
         erase(first);
     }
-    //destructor with erase-function
 
     void push_front(int x){
         first = new Node(x,first); //it's a new head
@@ -40,7 +59,7 @@ public:
     }
     void pop_back(){
         if(first){ //if not empty
-
+    
         }
     }
     void show(){
@@ -60,13 +79,13 @@ public:
         }
         return ans;
     }
-    void insert(int value,int pos){
+    void insert(int pos,int value){
         if(pos == 1){
-            push_front(value);
+            push_front(value);//how to implement without this "if"?
             return;
         }
         if(pos == size()){
-            push_back(value);
+            push_back(value);//how to implement without this "if"?
             return;
         }
         if(pos > size()){
@@ -76,7 +95,8 @@ public:
         for(int i=0; i<pos-2; ++i){
             head = head->next;
         }
-        Node* node = new Node(value,head->next);
+        Node* node = new Node(value);
+        node->next = head->next;
         head->next = node;
     }
 private:
@@ -87,20 +107,41 @@ private:
             delete p;
         }
     }
+    friend ostream& operator <<(ostream& os, LinkedList& list){
+        os << "[ ";
+        Node* head = list.first;
+        while(head){
+            os << head->val << " ";
+            head = head->next;
+        }
+        os << "]";
+        return os;
+    }
+    friend istream& operator >>(istream& is, LinkedList& list){
+        char s[1024];
+        is.getline(s,1024);
+        istringstream iss(s);
+        iss >> list;
+        return is;
+    }
+    friend istringstream& operator >>(istringstream& iss, LinkedList& list){
+        int x;
+        while(iss >> x){
+            list.push_back(x);
+        }
+        return iss;
+    }
 
     Node *first;
     Node **ptr_last;
 };
 int main(){
     LinkedList a;
-    a.push_back(7);
-    a.push_back(51);
-    a.push_back(18);
-    a.push_back(5);
-    a.push_back(87);
-    a.show();
-    a.insert(2,5);
-    a.show();
+    string s;
+    getline(cin,s);
+    istringstream is(s);
+    is >> a;
+    cout << a << endl;
 
     return 0;
 }
