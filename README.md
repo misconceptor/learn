@@ -8,3 +8,9 @@
 
 * git push   //push from local repo to remote
 * git pull //pull from remote into local
+
+# gtest cheatsheet
+
+* cmake --build build
+
+* build/test1
