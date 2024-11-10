@@ -26,9 +26,29 @@ public:
             head = head->next;
         }
     }
+    LinkedList& operator=(const LinkedList& rhs){ //assingment operator
+        if(rhs.first == first){
+            cout << "cancel\n";
+            return *this;
+        }
+        cout << "case0\n";
+        first = nullptr;
+        ptr_last = &first;
+        Node* head = rhs.first;
+        while(head){
+            push_back(head->val);
+            head = head->next;
+        }
+        return *this;
+    }
     //move constructor, which moves pointers on memory field from original to new
     //use std::move to access this constructor
     LinkedList(LinkedList && list) noexcept {
+        if(list.first==first){
+            cout << "case1\n";
+            return;
+        }
+        cout << "case2\n";
         first = list.first;
         ptr_last = list.ptr_last;
         list.first = nullptr;
@@ -38,7 +58,41 @@ public:
     ~LinkedList(){
         erase(first);
     }
-
+    class iterator {
+    public:
+        iterator(Node* node) {
+            cur = node;
+        }
+        iterator(const iterator& rhs) { //copy constructor
+            cur = rhs.cur;
+        }
+        iterator& operator=(const iterator& rhs){
+            cur = rhs.cur;
+            return *this;
+        }
+        iterator(iterator && rhs) noexcept { //move constructor
+            cur = rhs.cur;
+            rhs.cur = nullptr;
+        }
+        int operator*(){
+            return cur->val;
+        }
+        iterator& operator++(){
+            cur = cur->next;
+            return *this;
+        }
+        bool operator!=(iterator/*&*/ rhs){
+            return cur != rhs.cur;
+        }
+    private:
+        Node* cur;
+    };
+    iterator begin() { 
+        return iterator(first);
+    } 
+    iterator end() { 
+        return iterator(nullptr);
+    } 
     void push_front(int x){
         first = new Node(x,first); //it's a new head
         if(first->next == nullptr){ //case of empty list
@@ -99,6 +153,7 @@ public:
         node->next = head->next;
         head->next = node;
     }
+
 private:
     void erase(Node* &cur){
         while(cur != nullptr){
@@ -141,7 +196,7 @@ int main(){
     getline(cin,s);
     istringstream is(s);
     is >> a;
+    a = std::move(a);
     cout << a << endl;
-
     return 0;
 }
