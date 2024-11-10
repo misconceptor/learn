@@ -28,10 +28,8 @@ public:
     }
     LinkedList& operator=(const LinkedList& rhs){ //assingment operator
         if(rhs.first == first){
-            cout << "cancel\n";
             return *this;
         }
-        cout << "case0\n";
         first = nullptr;
         ptr_last = &first;
         Node* head = rhs.first;
@@ -196,7 +194,5 @@ int main(){
     getline(cin,s);
     istringstream is(s);
     is >> a;
-    a = std::move(a);
-    cout << a << endl;
     return 0;
 }
