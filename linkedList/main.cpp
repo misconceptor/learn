@@ -151,6 +151,21 @@ public:
         node->next = head->next;
         head->next = node;
     }
+    int task23() {
+        int ans=1,num=1;
+        Node* head = first;
+        while(head->next != *ptr_last){
+            cout << head->val << ' ' << head->next->val << endl;
+            if(head->val == head->next->val){
+                ++num;
+                ans = max(ans,num);
+            } else {
+                num = 1;
+            }
+            head = head->next;
+        }
+        return ans;
+    }
 
 private:
     void erase(Node* &cur){
@@ -194,5 +209,6 @@ int main(){
     getline(cin,s);
     istringstream is(s);
     is >> a;
+    cout << a.task23() << endl;
     return 0;
 }
