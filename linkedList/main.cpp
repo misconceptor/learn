@@ -131,31 +131,39 @@ public:
         }
         return ans;
     }
-    void insert(int pos,int value){
-        if(pos == 1){
-            push_front(value);//how to implement without this "if"?
-            return;
+    void insert(int pos, int x) {
+        Node** ptr_prev = &first;
+        Node* cur = first;
+        int i = 1;
+        while (i < pos && cur) {
+            ptr_prev = &cur->next;
+            cur = cur->next;
+            ++i;
         }
-        if(pos == size()){
-            push_back(value);//how to implement without this "if"?
-            return;
-        }
-        if(pos > size()){
-            return; //position is out of range
-        }
-        Node* head = first;
-        for(int i=0; i<pos-2; ++i){
-            head = head->next;
-        }
-        Node* node = new Node(value);
-        node->next = head->next;
-        head->next = node;
+        Node* node = new Node(x, cur);
+        *ptr_prev = node;
     }
+    //insert an element to a sorted list
+    void insert_to_sorted(int x) {
+        Node** ptr_prev = &first;
+        Node* cur = first;
+        while (cur) {
+            if (x <= cur->val) {
+                Node* node = new Node(x, cur);//it's also the solution for insert-method
+                *ptr_prev = node;//redefine the pointer from prev to new node
+                break;
+            }
+            ptr_prev = &cur->next;
+            cur = cur->next;
+        }
+        if (!cur) { //case of empty list, loop hasn't started
+            push_back(x);
+        }
+    } 
     int task23() {
         int ans=1,num=1;
         Node* head = first;
         while(head->next != *ptr_last){
-            cout << head->val << ' ' << head->next->val << endl;
             if(head->val == head->next->val){
                 ++num;
                 ans = max(ans,num);
