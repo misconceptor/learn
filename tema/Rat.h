@@ -12,11 +12,17 @@ public:
     Rat const operator*(const Rat& other) const;
     Rat const operator/(const Rat& other) const;
 
-    inline bool operator==(Rat const& r) const{
-        return (num * r.denom == denom * r.num);
+    inline bool operator==(Rat const& rhs) const{
+        return (num * rhs.denom == denom * rhs.num);
     }
-    inline bool operator==(int r) const{
-        return (num == denom * r);
+    inline bool operator==(int rhs) const{
+        return (num == denom * rhs);
+    }
+    std::strong_ordering operator<=>(Rat const& rhs) const {
+        return num*rhs.denom <=> denom*rhs.num;
+    }
+    std::strong_ordering operator<=>(int rhs) const {
+        return num <=> rhs*denom;
     }
 
     void Normalize();

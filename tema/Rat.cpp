@@ -1,6 +1,7 @@
 #include "Rat.h"
 #include <math.h>
 #include <iostream>
+#include <compare>
 
 Rat::Rat() : num(0), denom(1) {};
 Rat::Rat(int n) : num(n), denom(1) {}
