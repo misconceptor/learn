@@ -33,6 +33,17 @@ Rat const Rat::operator/(const Rat& other) const {
     r1.Normalize();
     return r1;
 }
+Rat& Rat::operator++() {
+    num += denom;
+    Normalize();
+    return *this;
+}
+Rat const Rat::operator++(int){
+    Rat result = *this;
+    num += denom;
+    Normalize();
+    return result;
+}
 
 void Rat::Normalize(){
     int a = num;

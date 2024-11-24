@@ -1,7 +1,7 @@
 class Rat{
 public:
     Rat();
-    Rat(int);
+    explicit Rat(int);
     Rat(int, int);
 
     const int& Numerator(); 
@@ -11,6 +11,8 @@ public:
     Rat const operator-(const Rat& other) const;
     Rat const operator*(const Rat& other) const;
     Rat const operator/(const Rat& other) const;
+    inline Rat& operator++();
+    inline Rat const operator++(int);
 
     inline bool operator==(Rat const& rhs) const{
         return (num * rhs.denom == denom * rhs.num);
