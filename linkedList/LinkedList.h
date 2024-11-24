@@ -1,3 +1,5 @@
+#pragma once
+
 class Node{
 public:
     Node() : val(0), next(nullptr) {}
