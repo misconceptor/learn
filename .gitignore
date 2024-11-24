@@ -3,3 +3,4 @@ country.cpp
 class.cpp
 **/main
 build/
+.vscode/
