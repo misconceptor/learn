@@ -211,12 +211,15 @@ private:
     Node *first;
     Node **ptr_last;
 };
+
+
 int main(){
-    LinkedList a;
+
+
+    /*LinkedList a;
     string s;
     getline(cin,s);
     istringstream is(s);
-    is >> a;
-    cout << a.task23() << endl;
+    is >> a;*/
     return 0;
 }
