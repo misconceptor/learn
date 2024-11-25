@@ -7,12 +7,21 @@ Rat::Rat() : num(0), denom(1) {};
 Rat::Rat(int n) : num(n), denom(1) {}
 Rat::Rat(int n, int m) : num(n), denom(m) {}
 
-const int& Rat::Numerator (){
+int& Rat::Numerator() {
     return num;
 }
-const int& Rat::Denominator (){
+const int& Rat::Numerator() const {
+    std::cout << "constnum\n";
+    return num;
+}
+int& Rat::Denominator() {
     return denom;
 }
+const int& Rat::Denominator() const {
+    std::cout << "constdenom\n";
+    return denom;
+}
+
 Rat const Rat::operator+(const Rat& other) const {
     Rat r1 = Rat(num*other.denom + other.num*denom, denom*other.denom);
     r1.Normalize();
@@ -44,6 +53,32 @@ Rat const Rat::operator++(int){
     Normalize();
     return result;
 }
+Rat& Rat::operator+=(const Rat& other){
+    num = num * other.denom + other.num * denom;
+    denom *= other.denom;
+    Normalize();
+    return *this;
+}
+Rat& Rat::operator+=(int other){
+    num += denom * other;
+    Normalize();
+    return *this;
+}
+Rat& Rat::operator-=(const Rat& other){
+    num = num * other.denom - other.num * denom;
+    denom *= other.denom;
+    Normalize();
+    return *this;
+}
+Rat& Rat::operator-=(int other){
+    num -= denom * other;
+    Normalize();
+    return *this;
+}
+
+Rat::operator double() const {
+    return (double)num / denom;
+} 
 
 void Rat::Normalize(){
     int a = num;

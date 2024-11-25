@@ -3,16 +3,26 @@ public:
     Rat();
     explicit Rat(int);
     Rat(int, int);
+    ~Rat(){}
 
-    const int& Numerator(); 
-    const int& Denominator();
+    int& Numerator();
+    const int& Numerator() const; 
+    int& Denominator();
+    const int& Denominator() const;
 
     Rat const operator+(const Rat& other) const;
     Rat const operator-(const Rat& other) const;
     Rat const operator*(const Rat& other) const;
     Rat const operator/(const Rat& other) const;
-    inline Rat& operator++();
-    inline Rat const operator++(int);
+    inline Rat& operator++(); //prefix
+    inline Rat const operator++(int); //postfix
+
+    Rat& operator+=(const Rat& other);
+    Rat& operator+=(int other);
+    Rat& operator-=(const Rat& other);
+    Rat& operator-=(int other);
+
+    explicit operator double() const;
 
     inline bool operator==(Rat const& rhs) const{
         return (num * rhs.denom == denom * rhs.num);
@@ -26,7 +36,6 @@ public:
     std::strong_ordering operator<=>(int rhs) const {
         return num <=> rhs*denom;
     }
-
     void Normalize();
     void Show();
 private:
