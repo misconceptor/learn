@@ -174,7 +174,41 @@ public:
         }
         return ans;
     }
-
+    void reverse(){
+        reverse_ptr(first,*ptr_last);
+        cout << first << endl;
+        cout << *ptr_last << endl;
+    }
+    void reverse_ptr(Node* &b, Node* e){
+        Node* prev = e;
+        Node* cur = b;
+        while(cur){
+            Node* t = prev;
+            prev = cur;
+            cur = cur->next;
+            prev->next = t;
+        }
+        b = prev;
+    }
+    void reverse_range(int l, int r){ //doesn't work
+        if(l>size()){
+            return;
+        }
+        int i;
+        Node **ptr_prev = &first;
+        for(i=0; i<l; ++i){
+            ptr_prev = &(*ptr_prev)->next;
+        }
+        Node* cur = *ptr_prev;
+        while(i++<r && cur != nullptr){
+            cur = cur->next;
+            //++i;
+        }
+        if(cur==nullptr && *ptr_prev != nullptr){
+            ptr_last = &(*ptr_prev)->next;
+        }
+        reverse_ptr(*ptr_prev,cur);
+    }
 private:
     void erase(Node* &cur){
         while(cur != nullptr){
@@ -214,12 +248,13 @@ private:
 
 
 int main(){
-
-
-    /*LinkedList a;
+    LinkedList a;
     string s;
     getline(cin,s);
     istringstream is(s);
-    is >> a;*/
+    is >> a;
+    a.reverse();
+    cout << a << endl;
+    //доделать reverse_range
     return 0;
 }
