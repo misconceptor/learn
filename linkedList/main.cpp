@@ -175,39 +175,20 @@ public:
         return ans;
     }
     void reverse(){
-        reverse_ptr(first,*ptr_last);
-        cout << first << endl;
-        cout << *ptr_last << endl;
-    }
-    void reverse_ptr(Node* &b, Node* e){
-        Node* prev = e;
-        Node* cur = b;
+        Node* old_head = first;
+        Node* cur = first;
+        Node* prev = nullptr;
         while(cur){
             Node* t = prev;
             prev = cur;
             cur = cur->next;
             prev->next = t;
         }
-        b = prev;
+        first = prev;
+        ptr_last = &old_head->next;
     }
-    void reverse_range(int l, int r){ //doesn't work
-        if(l>size()){
-            return;
-        }
-        int i;
-        Node **ptr_prev = &first;
-        for(i=0; i<l; ++i){
-            ptr_prev = &(*ptr_prev)->next;
-        }
-        Node* cur = *ptr_prev;
-        while(i++<r && cur != nullptr){
-            cur = cur->next;
-            //++i;
-        }
-        if(cur==nullptr && *ptr_prev != nullptr){
-            ptr_last = &(*ptr_prev)->next;
-        }
-        reverse_ptr(*ptr_prev,cur);
+    void reverse(int b, int e){
+        
     }
 private:
     void erase(Node* &cur){
