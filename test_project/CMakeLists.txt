@@ -15,6 +15,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+include_directories(spdlog/include)
+
 add_executable(
   test1
   test1.cpp
