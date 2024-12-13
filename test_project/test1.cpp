@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
+#include "../animal/Date.cpp"
 
 TEST(HelloTest, BasicAssertions) {
+    EXPECT_EQ(Date::daysInMonth(2000,5),5);
 }
 
 int main(int argc, char **argv) {

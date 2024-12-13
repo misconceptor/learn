@@ -1,11 +1,16 @@
-#define _CRT_SECURE_NO_WARNINGS
-#define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
+//#define _CRT_SECURE_NO_WARNINGS
+//#define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
 //#include "spdlog/spdlog.h"
 
 #include <memory>
 #include <exception>
 #include <sstream>
+#include <iostream>
+#include <tuple>
+#include <cstdint>
+#include <cstdlib>
 #include <ctime>
+#include <string>
 
 #include "Date.h"
 
@@ -13,19 +18,14 @@
 /*int Date::age() const noexcept {
     Date today();
     return this->age(today);
-}*/
-
+}
 int Date::age(const Date& date) const noexcept { // age in days
     return 0;
     //return age;
-}
-
-
+}*/
 std::string Date::toString() const noexcept {
-    std::stringstream ss;
     std::string out;
-    ss << year_ << ' ' << month_ << ' ' << day_;
-    ss >> out;
+    out = std::to_string(year_)+" "+std::to_string(month_)+" "+std::to_string(day_);
     return out; 
 }
 bool Date::isLeapYear(int year) noexcept {
@@ -48,7 +48,7 @@ int Date::daysInMonth(int year, int month) noexcept {
 }
 
 void Date::checkValid(int y, int m, int d) {
-    if(m <= 1 || m>= 12 || d < 1 || d > daysInMonth(y,m)){
+    if(m < 1 || m > 12 || d < 1 || d > daysInMonth(y,m)){
         throw std::invalid_argument("the date is incorrect");
     }
 }
@@ -83,5 +83,3 @@ std::istream& operator>>(std::istream& is, Date& date) {
     date.day_= d;
     return is;
 }
-
-    
