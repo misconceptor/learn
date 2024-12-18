@@ -1,0 +1,1 @@
+bool isEven(int);

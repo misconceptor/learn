@@ -1,6 +1,6 @@
 #pragma once
 //#define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
-//#include "spdlog/spdlog.h"
+#include "spdlog/spdlog.h"
 
 #include <iostream>
 #include <tuple>
@@ -39,8 +39,8 @@ public:
     int year() const noexcept {
         return year_;
     }
-    //int age() const noexcept; // возраст существа, на сегодня, если *this - дата отсчета
-    //int age(const Date& date) const noexcept; // возраст существа, на date, если *this - дата отсчета
+    int age() const noexcept; // возраст существа, на сегодня, если *this - дата отсчета
+    int age(const Date& date) const noexcept; // возраст существа, на date, если *this - дата отсчета
 
     void checkValid(int y, int m, int d); //completed
     static bool isLeapYear(int year)  noexcept; //completed
@@ -52,7 +52,7 @@ private:
     int month_;
     int year_;
 
-    //std::shared_ptr<spdlog::logger> log_;
+    std::shared_ptr<spdlog::logger> log_; //pointer to class
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
     friend std::istream& operator>>(std::istream& is, Date& date);

@@ -1,6 +1,6 @@
 //#define _CRT_SECURE_NO_WARNINGS
 //#define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
-//#include "spdlog/spdlog.h"
+#include "spdlog/spdlog.h"
 
 #include <memory>
 #include <exception>
@@ -15,14 +15,29 @@
 #include "Date.h"
 
 
-/*int Date::age() const noexcept {
-    Date today();
+int Date::age() const noexcept {
+    Date today;
     return this->age(today);
 }
+
 int Date::age(const Date& date) const noexcept { // age in days
-    return 0;
-    //return age;
-}*/
+    struct std::tm a{};
+    struct std::tm b{};
+    a.tm_year = this->year()-1900;
+    a.tm_mon = this->month()-1;
+    a.tm_mday= this->day();
+    time_t t1 = std::mktime(&a);
+    std::cout << asctime(&a) << std::endl;
+
+    b.tm_year = date.year()-1900;
+    b.tm_mon= date.month()-1;
+    b.tm_mday = date.day();
+    time_t t2 = std::mktime(&b);
+    std::cout << asctime(&b) << std::endl;
+
+    double d (std::difftime(t2,t1) / (60*60*24));
+    return (int)d;
+}
 std::string Date::toString() const noexcept {
     std::string out;
     out = std::to_string(year_)+" "+std::to_string(month_)+" "+std::to_string(day_);
