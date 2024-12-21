@@ -5,6 +5,7 @@ using namespace std;
 namespace spd = spdlog;
 int main(){
     auto makaka = spd::stdout_color_mt("console");
+    makaka->trace("djfdj");
     makaka->critical("Welcome to spdlog!");
     return 0;
 }
