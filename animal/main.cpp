@@ -9,5 +9,6 @@ int main(){
     std::string n = "tema";
     std::string ch = "88";
     auto log = spdlog::stdout_color_mt("log");
+    log->trace("aaa");
     return 0;
 }
