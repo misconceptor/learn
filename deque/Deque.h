@@ -1,10 +1,6 @@
 #pragma once
 #include <string>
 #include <iostream>
-struct Student{
-    std::string name;
-    int score;
-};
 
 template<typename T>
 class iterator {
