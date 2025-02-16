@@ -15,7 +15,7 @@ struct Node {
 
 class Tree {
 private:
-    Node* ptr;
+    Node* ptr; //TODO RENAME TO PTR_HEAD
     void erase(Node* &t) {
         if(t){
             erase(t->left);
@@ -42,9 +42,13 @@ public:
     } 
     std::ostream& printIn(std::ostream& os, Node* n) const {
         if(n){
+            if(n->left) std::cout << "(";
             printIn(os,n->left);
-            os << n->val << ' ';
+            if(n->left) std::cout << ") <- ";
+            os << n->val;
+            if(n->right) std::cout << " -> (";
             printIn(os,n->right);
+            if(n->right) std::cout << ")";
         }
         return os;
     }
@@ -66,37 +70,39 @@ public:
     }
     int size(){
         return size(ptr);
-    }/*найти максимальное поддерево 
+    }
+    /*найти максимальное поддерево 
     с наибольшим числом вершин, в котором для каждой нелистьевой 
     вершины  число вершин в левом поддереве больше числа 
     вершин в правом поддереве*/
     
-    Node* task(){
+    Node* maxsub(){
         int s;
-        return task(ptr,s);
+        bool b;
+        return maxsub(ptr, b, s);
     }
-    Node* task(Node* t, int &s){
-        if(t==nullptr){
+    Node* maxsub(Node* t, bool& b, int &s){
+        if (t == nullptr){
+            b = true;
             s = 0;
             return nullptr;
         }
-        if(t->isLeaf()) {
+        if (t->isLeaf()) {
+            b = true;
             s = 1;
-            return nullptr;
+            return t; //?
         }
 
+        bool bl,br;
         int sl,sr,hl,hr;
-        Node *l = task(t->left,sl);
-        Node *r = task(t->right,sr);
-        s = sl+sr+1;
-        std::cout << t->val << ' ' << s << ' ' << sl << ' '<<sr <<'\n';
-
-        /*if(sl==sr){
-            return 
-        }*/
-        if(sl > sr) return t;
-        else if(r) return r;
-        else return l;
+        Node *l = maxsub(t->left, bl, sl);
+        Node *r = maxsub(t->right, br, sr);
+        if (b = (bl&&br) && (sl > sr)) {
+            s = sl+sr+1;
+            return t;
+        }
+        s = std::max(sl, sr);
+        return sl > sr ? l : r;
         //вопрос - как выбрать вершину основываясь на ее глубине,числе вершин и хорошести
         //например если 2 поддерева удовлетворяют, надо вырбать то 
         //которое ближе к корню и в котором больше вершин

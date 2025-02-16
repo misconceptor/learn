@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include "Tree.cpp"
 using namespace std;
-
+ 
 int main(){
     Tree t;
     int n;
@@ -11,7 +11,8 @@ int main(){
         cin >> k;
         t.insert(k);
     }
-    Node* a = t.task();
+    Node* a = t.maxsub();
     cout << a->val << endl;
+    cout << t << endl;
     return 0;
 }
