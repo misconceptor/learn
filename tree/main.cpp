@@ -12,7 +12,5 @@ int main(){
         t.insert(k);
     }
     Node* a = t.maxsub();
-    cout << a->val << endl;
-    cout << t << endl;
     return 0;
 }
