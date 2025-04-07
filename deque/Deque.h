@@ -5,6 +5,7 @@ struct Student{
     std::string name;
     int score;
 };
+const int DEFAULT_SIZE = 5;
 
 template<typename T>
 class iterator {
@@ -36,7 +37,7 @@ public:
 /*todo:
 ctors
 */
-explicit Deque(int n) {
+explicit Deque(int n = DEFAULT_SIZE) {
     cap = n+1;
     b = 0;
     e = 0;
@@ -65,6 +66,9 @@ Deque(Deque&& rhs) {
     rhs.node = nullptr;
     rhs.b = rhs.e = rhs.cap = 0;
 }
+
+friend std::ostream& operator<< <>(std::ostream& , const Deque<T>&);
+
 void Swap(Deque& rhs){
     std::swap(node,rhs.node);
     std::swap(cap,rhs.cap);
@@ -164,3 +168,12 @@ private:
     int b; //index of first
     int e; //index of element after the last 
 };
+
+template<class T>
+std::ostream& operator << (std::ostream& os, const Deque<T>& rhs){
+    for(int i=rhs.b; i!=rhs.e; i = (i+1)%rhs.capacity()){ 
+        os << rhs.node[i] << ' ';
+    }
+    os << '\n';
+    return os;
+}

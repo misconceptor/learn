@@ -56,6 +56,7 @@ int main(){
         input >> t;
         e1.push_back(t); 
     }
+    
     copy(e1.begin(), e1.end(), back_inserter(edges));
     /*cout << "size=" << edges.size() << endl;
     for(int i=0;i<edges.size();++i){

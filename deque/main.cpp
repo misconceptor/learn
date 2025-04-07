@@ -3,7 +3,10 @@
 using namespace std;
 
 int main(){
-    Deque<int> d{1,2,3,54,5};
-    Deque<int> c = std::move(d);
+    /*todo ostream operator;
+    constructor with iterators
+    */
+    Deque<char> d;
+    cout << d;
     return 0;
 }
