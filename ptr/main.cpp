@@ -1,41 +1,10 @@
 #include <iostream>
 #include <memory>
+#include "Book.cpp"
+#include "Library.cpp"
 using namespace std;
 
-class Book{
-public:
-    Book(){
-        cout << "def_ctor\n";
-        title = "unknown";
-        author = "unknown";
-        year = -1;
-    }
-    Book(string _title, string _author, int _year){
-        cout << "par_ctor\n";
-        title = _title;
-        author = _author; 
-        year = _year;
-    }
-    ~Book(){
-        cout << "dtor\n";
-    }
-    void print(){
-        cout << title << ' ' << author << ' ' << year << '\n';
-    }
-    string getTitle() const {
-        return title;
-    }
-    string getAuthor() const {
-        return author;
-    }
-    int getYear() const {
-        return year;
-    }
-private:
-    std::string title, author;
-    int year;
-};
-
+//task 1
 void bookInfo(unique_ptr<Book> ptr){
     if(!ptr){
         cout << "unknown\n";
@@ -48,17 +17,41 @@ void bookInfo(unique_ptr<Book> ptr){
 Book makeBook(string _title, string _author, int _year){
     cout <<"stage0\n";
     unique_ptr<Book> ptr = make_unique<Book>(_title,_author,_year);
-    cout <<"stage1\n";
     return *ptr;
 }
-
-void foo(Book rhs){
-    cout << rhs.getYear() << endl;
+void foo(unique_ptr<Book> &p){
+    cout << "author is " << p->getAuthor() << '\n';
 }
+//end of task 1
+
+
 
 int main(){
-    //unique_ptr<Book> ptr1 = make_unique<Book>("tit","aut",2000);
-    foo(makeBook("a","b",1987));
-    //todo copy ctor
+    shared_ptr<Book> book[4];
+    Library lib;
+
+    book[0] = make_shared<Book>("t1","a1",1);
+    book[1] = make_shared<Book>("t2","a2",2);
+    book[2] = make_shared<Book>("t3","a3",3);
+    book[3] = make_shared<Book>("t4","a4",4);
+
+
+
+    // weak_ptr <Book> wp = book[0];
+    // if(!wp.expired()){
+    //     wp.lock()->print();
+    // } else {
+    //     cout << "exp\n";
+    // }
+    /*
+        TODO: 
+        1)add multiple books to library? 
+        2)weak ptr method for searching a book
+        3)the same function
+        4)"user" class
+        qt integration
+
+    
+    */
     return 0;
 }
