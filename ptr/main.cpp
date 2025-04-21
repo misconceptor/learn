@@ -2,6 +2,7 @@
 #include <memory>
 #include "Book.cpp"
 #include "Library.cpp"
+#include "User.cpp"
 using namespace std;
 
 //task 1
@@ -27,28 +28,30 @@ void foo(unique_ptr<Book> &p){
 
 
 int main(){
-    shared_ptr<Book> book[4];
+    //rules: unique books and users,
+    //find books and users only with all the parameters
     Library lib;
+    shared_ptr<User> u1 = make_shared<User>(3,"user");
+    shared_ptr<User> u2 = make_shared<User>(4,"bb");
+    shared_ptr<Book> b1 = make_shared<Book>("b1","a1",22);
+    shared_ptr<Book> b2 = make_shared<Book>("b2","a2",33);
+    shared_ptr<Book> b3 = make_shared<Book>("b3","a3",44);
+    lib.addUser(u1);
+    lib.addBook(b1);
+    lib.addBook(b2);
+    lib.addBook(b3);
 
-    book[0] = make_shared<Book>("t1","a1",1);
-    book[1] = make_shared<Book>("t2","a2",2);
-    book[2] = make_shared<Book>("t3","a3",3);
-    book[3] = make_shared<Book>("t4","a4",4);
+    lib.assignBook(b1,u1);
+    lib.assignBook(b2,u1);
+    lib.assignBook(b3,u1);
 
+    lib.deleteBook(b2);
+    return 0; 
 
-
-    // weak_ptr <Book> wp = book[0];
-    // if(!wp.expired()){
-    //     wp.lock()->print();
-    // } else {
-    //     cout << "exp\n";
-    // }
     /*
+        completed : deleting books and users with respect to pointers and assignments
         TODO: 
-        1)add multiple books to library? 
-        2)weak ptr method for searching a book
-        3)the same function
-        4)"user" class
+
         qt integration
 
     

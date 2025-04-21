@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include "User.h"
+#pragma once
 using namespace std;
 class Book{
 public:
@@ -40,7 +42,11 @@ public:
     bool operator==(const Book& rhs) const {
         return title == rhs.title && author==rhs.author && year==rhs.year;
     }
+    bool isAvailable() const {
+        return borrower.expired();
+    }
+    weak_ptr<User> borrower;
 private:
-    std::string title, author;
+    string title, author;
     int year;
 };
